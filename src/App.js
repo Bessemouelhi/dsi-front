@@ -9,6 +9,7 @@ import NavBar from './component/NavBar';
 import Connexion from './component/pages/connexion';
 import Inscription from './component/pages/inscription';
 import Footer from './component/Footer';
+import Gallery from './component/pages/Gallery';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/css" element={<Childcss />}/>
         <Route path="/connexion" element={<Connexion />}/>
         <Route path="/inscription" element={<Inscription />}/>
+        <Route path="/gallery" element={<Gallery />}/>
         {/* <Route path="/" element={<Content title="toto" />}/> */}
       </Routes>
       <Footer/>

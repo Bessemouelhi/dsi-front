@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
@@ -5,8 +6,8 @@ import Container from 'react-bootstrap/Container';
 
 function Connexion() {
 
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,13 +16,13 @@ function Connexion() {
 
   return (
     <Container className='text-center mycenter'>
-    <Card style={{ width: '50%', padding:'15px' }}>
+    <Card style={{ width: '200px', padding:'15px' }}>
         <h2>Connexion</h2>
     <Form onSubmit={handleSubmit}>
     
       <Form.Group className="mb-3" controlId="email">
         <Form.Label>Email</Form.Label>
-        <Form.Control type="email" placeholder="Email" />
+        <Form.Control  type="email" placeholder="Email" />
         <Form.Text className="text-muted">
         </Form.Text>
       </Form.Group>
