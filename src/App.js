@@ -20,8 +20,8 @@ function App() {
         <Route path="/cars" element={<MyCars title="Calatogue" />}/>
         <Route path="/modal" element={<MyModal />}/>
         <Route path="/css" element={<Childcss />}/>
-        <Route path="/connexion" element={<Connexion />}/>
-        <Route path="/inscription" element={<Inscription />}/>
+        <Route path="/signin" element={<Connexion />}/>
+        <Route path="/signup" element={<Inscription />}/>
         <Route path="/gallery" element={<Gallery />}/>
         {/* <Route path="/" element={<Content title="toto" />}/> */}
       </Routes>
