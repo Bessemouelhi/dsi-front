@@ -18,6 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test:unit": "react-scripts test",
     "test": "npx cypress open",
     "eject": "react-scripts eject"
   },
