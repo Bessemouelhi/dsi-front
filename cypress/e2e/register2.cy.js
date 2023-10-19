@@ -8,6 +8,7 @@ describe('Register test', () => {
             cy.get('h2').contains('Inscription')
             cy.get('a[href="/signin"]').contains('Déjà un compte ?').click()
             // setTimeout(() => {
+                    cy.wait(400)
             //     cy.url().should('eq', 'http://localhost:3000/signin')
             // }, 400);
         })
@@ -18,6 +19,7 @@ describe('Register test', () => {
                 .contains('Entre 4 et 24 caractères')
                 .contains('Doit commencer par une lettre.')
                 .contains('Doit comporter au moins une lettre et aucun caractère spécial.')
+                .should('exist')
             cy.get('input[name="email"]').type('admin@admin.com')
             cy.get('input[name="tel"]').type('0401020304')
             cy.get('input[name="password"]').type('Admin12!')
