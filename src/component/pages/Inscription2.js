@@ -1,72 +1,155 @@
-import { Button, Form, Card, Container } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from "react-router-dom";
+// import Wrapper from "./Wrapper";
+import { useEffect, useState } from "react";
+import Input from "../Input";
 
-function Inscription2() {
-  const navigate = useNavigate();
+const UserRegex = /^[a-zA-Z][a-zA-Z0-9-_\.]{3,24}$/;
+const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const PasswordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@&#$%]).{8,23}$/;
+const PhoneNumberRegex = /^\+(?:\d{1,3})?\d{10,14}$/;
 
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    tel: '',
-    password: '',
-    confirmPassword: ''
-  });
+const Inscription2 = () => {
+  const [userName, setUserName] = useState("");
+  const [validUserName, setValidUserName] = useState(false);
+  const [userNameFocus, setUserNameFocus] = useState(false);
 
-  const [errors, setErrors] = useState({});
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
 
-  const validations = {
-    username: value => /^(?=.{4,24}$)(?=.*[a-zA-Z])[a-zA-Z0-9]*$/.test(value) || "Entre 4 et 24 caractères. Commence par une lettre. Pas de caractère spécial.",
-    email: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || "L'adresse mail doit avoir le bon format.",
-    tel: value => /^(0\d)(?:[\s-]?(\d{2})){4}$/.test(value) || "Le numéro de téléphone doit avoir le bon format.",
-    password: value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$/.test(value) || "Doit contenir au moins 8 caractères, au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial.",
-    confirmPassword: value => value === formData.password || "Les mots de passe doivent correspondre."
-  };
+  const [phone, setPhone] = useState("");
+  const [validPhone, setValidPhone] = useState(false);
+  const [phoneFocus, setPhoneFocus] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({ ...prevState, [name]: value }));
+  const [password, setPassword] = useState("");
+  const [validPassword, setValidPassword] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
 
-    const error = validations[name](value);
-    setErrors(prevState => ({ ...prevState, [name]: typeof error === "string" ? error : undefined }));
-  };
+  const [password2, setPassword2] = useState("");
+  const [validPassword2, setValidPassword2] = useState(false);
+  const [password2Focus, setPassword2Focus] = useState(false);
 
-  const isFormValid = () => Object.values(validations).every(validation => validation(formData[name]) === true);
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isFormValid()) {
-      console.log('Submit Inscription');
-      navigate('/account');
-    }
-  };
+  const inputArray = [
+    {
+      name: "username",
+      state: userName,
+      setState: setUserName,
+      regex: UserRegex,
+      valid: validUserName,
+      setvalid: setValidUserName,
+      focus: userNameFocus,
+      setFocus: setUserNameFocus,
+      type: "text",
+      msg: "Entre 4 et 24 caractères. Doit commencer par une lettre. Doit comporter au moins une lettre et aucun caractère spécial.",
+    },
+    {
+      name: "email",
+      state: email,
+      setState: setEmail,
+      regex: EmailRegex,
+      valid: validEmail,
+      setvalid: setValidEmail,
+      focus: emailFocus,
+      setFocus: setEmailFocus,
+      type: "email",
+      msg: "L'adresse mail doit avoir le bon format.",
+    },
+    {
+      name: "tel",
+      state: phone,
+      setState: setPhone,
+      regex: PhoneNumberRegex,
+      valid: validPhone,
+      setvalid: setValidPhone,
+      focus: phoneFocus,
+      setFocus: setPhoneFocus,
+      type: "tel",
+      msg: "Le numéro de téléphone doit avoir le bon format.",
+    },
+    {
+      name: "password",
+      state: password,
+      setState: setPassword2,
+      regex: PasswordRegex,
+      valid: validPassword2,
+      setvalid: setValidPassword2,
+      focus: password2Focus,
+      setFocus: setPassword2Focus,
+      type: "password",
+      msg: "Doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+    },
+    {
+      name: "confirmPassword",
+      state: password2,
+      setState: setPassword,
+      regex: PasswordRegex,
+      valid: validPassword,
+      setvalid: setValidPassword,
+      focus: passwordFocus,
+      setFocus: setPasswordFocus,
+      type: "password",
+      msg: "Doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+    },
+  ];
+
+  useEffect(() => {
+    inputArray.forEach((element) => {
+      const verif = element.regex.test(element.state);
+      element.setvalid(verif);
+    });
+  }, [inputArray]);
+
+  // useEffect(() => {
+  //   const verif = userNameRegex.test(userName);
+  //   setValidUserName(verif);
+  // }, [userName]);
+
+  // useEffect(() => {
+  //   if (EmailRegex.test(email)) {
+  //     setValidEmail(true);
+  //   } else {
+  //     setValidEmail(false);
+  //   }
+  // }, [email]);
+
+  // const verifMail = (email)=>{
+  //   let verif = EmailRegex.test(email);
+  //   setEmail(email)
+  //   if (verif) {
+  //     setValidEmail(true)
+  //   } else {
+  //     setValidEmail(false)
+  //   }
+  // }
 
   return (
-    <Container className='text-center mycenter'>
-      <Card style={{ width: '50%', padding: '15px' }}>
-        <h2>Inscription</h2>
-        <Form onChange={handleInputChange} onSubmit={handleSubmit}>
-          {["username", "email", "tel", "password", "confirmPassword"].map(name => (
-            <Form.Group key={name} className="mb-3" controlId={`formBasic${name}`}>
-              <Form.Label>{name}</Form.Label>
-              <Form.Control
-                type={name}
-                name={name}
-                placeholder={name}
-                value={formData[name]}
-                isInvalid={!!errors[name]}
-              />
-              {errors[name] && <div className="invalid-feedback">{errors[name]}</div>}
-            </Form.Group>
-          ))}
-          <Button id="submit" variant="primary" type="submit" disabled={!isFormValid()}>
-            Envoyer
-          </Button>
-        </Form>
-      </Card>
-      <Link to="/signin">Déjà un compte ?</Link>
-    </Container>
+    <div className="container">
+      <div className="card">
+        <div className="card-body">
+          <h2 className="card-title">Inscription</h2>
+          <form>
+            {inputArray.map((element, index) => {
+              return <Input key={index}>{element}</Input>;
+            })}
+
+            <div className="d-flex mb-3 col-12 justify-content-between">
+              <Link to={"/signin"}>Déjà un compte ?</Link>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={validEmail && validPassword ? true : true}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
-}
+};
 
 export default Inscription2;

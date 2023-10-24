@@ -6,6 +6,7 @@ function Goku(props) {
     return (
         <div>
             <Image src={goku} style={{height: "400px"}} />
+            
         </div>
     );
 }
